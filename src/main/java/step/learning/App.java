@@ -2,6 +2,8 @@ package step.learning;
 
 import step.learning.basics.BasicsDemo;
 import step.learning.basics.FilesDemo;
+import step.learning.oop.OopDemo;
+
 public class App
 {
     public static void main( String[] args )
@@ -21,11 +23,13 @@ public class App
         //        System.out.println(y);
         //    }
         //}
-        FilesDemo obj = new FilesDemo();
+        //FilesDemo obj = new FilesDemo();
         //obj.run();
         //obj.run1();
         //obj.run2();
-        obj.HW();
+        //obj.HW();
+        OopDemo obj = new OopDemo();
+        obj.run();
     }
 }
 /*
