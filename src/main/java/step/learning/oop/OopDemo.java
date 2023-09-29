@@ -114,6 +114,15 @@ public class OopDemo {
         library.printPeriodic2();
         System.out.println("--------------NONPERIODIC--------------");
         library.printNonPeriodic();
+
+        System.out.println("--------------Printable-----------------");
+        library.printPrintable();
+        System.out.println("---------------NonPrintable-------------");
+        library.printNonPrintable();
+        System.out.println("--------------Multiple-----------------");
+        library.printMultiple();
+        System.out.println("---------------NonMultiple-------------");
+        library.printNonMultiple();
     }
 
 }

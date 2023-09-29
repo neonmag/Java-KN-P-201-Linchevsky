@@ -31,15 +31,15 @@ public class App
         //obj.run1();
         //obj.run2();
         //obj.HW();
-        //OopDemo obj = new OopDemo();
-        //obj.run();
-        Scanner kbscaner = new Scanner(System.in);
-        System.out.print("Type min length: ");
-        int minLength = Integer.parseInt(kbscaner.next()); // Минимальная длина строки
-        System.out.print("Type min length: ");
-        int maxLength = Integer.parseInt(kbscaner.next()); // Максимальная длина строки
-        HWMaxString randomString = new HWMaxString();
-        System.out.println(randomString.generateString(minLength, maxLength));
+        OopDemo obj = new OopDemo();
+        obj.run();
+        //Scanner kbscaner = new Scanner(System.in);
+        //System.out.print("Type min length: ");
+        //int minLength = Integer.parseInt(kbscaner.next());
+        //System.out.print("Type min length: ");
+        //int maxLength = Integer.parseInt(kbscaner.next());
+        //HWMaxString randomString = new HWMaxString();
+        //System.out.println(randomString.generateString(minLength, maxLength));
     }
 }
 /*

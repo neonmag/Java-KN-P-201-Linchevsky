@@ -172,4 +172,47 @@ public class Library {
     {
         return literature instanceof Periodic;
     }
+    public void printPrintable(){
+        for( Literature literature : funds){
+            if(isPrintable( literature)){
+                System.out.println(literature.GetCard());
+            }
+        }
+    }
+
+    public void printNonPrintable(){
+        for( Literature literature : funds){
+            if(isHologram( literature)){
+                System.out.println(literature.GetCard());
+            }
+        }
+    }
+
+    public boolean isPrintable(Literature literature){
+        return literature instanceof Printable;
+    }
+
+    public boolean isHologram(Literature literature){
+        return literature instanceof Hologram;
+    }
+
+    public void printMultiple(){
+        for( Literature literature : funds){
+            if(isMultiple( literature)){
+                System.out.println(literature.GetCard());
+            }
+        }
+    }
+
+    public void printNonMultiple(){
+        for( Literature literature : funds){
+            if(!isMultiple( literature)){
+                System.out.println(literature.GetCard());
+            }
+        }
+    }
+
+    public boolean isMultiple(Literature literature){
+        return literature instanceof Multiple;
+    }
 }
