@@ -1,45 +1,24 @@
 package step.learning;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import step.learning.basics.BasicsDemo;
 import step.learning.basics.FilesDemo;
+import step.learning.ioc.ConfigModule;
+import step.learning.ioc.IocDemo;
 import step.learning.oop.HWMaxString;
 import step.learning.oop.OopDemo;
 
+import javax.inject.Inject;
 import java.util.Scanner;
 
 public class App
 {
     public static void main( String[] args )
     {
-        //System.out.println( "Hello World!" );
-
-
-        //int [][] nums = {
-        //        {1,2,3},
-        //        {4,5,6},
-        //        {7,8,9},
-        //};
-//
-        //for(int[] x : nums) {
-        //    for(int y: x)
-        //    {
-        //        System.out.println(y);
-        //    }
-        //}
-        //FilesDemo obj = new FilesDemo();
-        //obj.run();
-        //obj.run1();
-        //obj.run2();
-        //obj.HW();
-        OopDemo obj = new OopDemo();
-        obj.run();
-        //Scanner kbscaner = new Scanner(System.in);
-        //System.out.print("Type min length: ");
-        //int minLength = Integer.parseInt(kbscaner.next());
-        //System.out.print("Type min length: ");
-        //int maxLength = Integer.parseInt(kbscaner.next());
-        //HWMaxString randomString = new HWMaxString();
-        //System.out.println(randomString.generateString(minLength, maxLength));
+        Injector injector = Guice.createInjector(new ConfigModule());
+        IocDemo iocDemo = injector.getInstance(IocDemo.class);
+        iocDemo.run();
     }
 }
 /*
