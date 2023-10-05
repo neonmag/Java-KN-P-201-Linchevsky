@@ -6,7 +6,20 @@ public class AsyncDemo {
     public void run() {
         System.out.println( "Async demo" ) ;
         //multiThreadDemo();
-        Hw();
+        for (int i = 0; i <= 9; i++) {
+            final int num = i;
+            Thread thread = new Thread(() -> {
+                synchronized (lock) {
+                    result.append(num);
+                    amount++;
+                    if (amount == 10) {
+                        System.out.println(result.toString());
+                    }
+                }
+            });
+            thread.start();
+        }
+        System.out.println("final");
     }
     private void multiThreadDemo(){
         Thread thread = new Thread(
@@ -33,53 +46,7 @@ public class AsyncDemo {
         //      thread.start();
         System.out.println("multiThreadDemo() finishes");
     }
-
-    private void Hw(){
-        CountDownLatch latch = new CountDownLatch(3);
-
-        Thread thread1 = new Thread(() -> {
-            System.out.println("1 start");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("1 finish");
-            latch.countDown();
-        });
-
-        Thread thread2 = new Thread(() -> {
-            System.out.println("2 start");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("2 finish");
-            latch.countDown();
-        });
-
-        Thread thread3 = new Thread(() -> {
-            System.out.println("3 start");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("3 finish");
-            latch.countDown();
-        });
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("final");
-    }
+    private static final Object lock = new Object();
+    private static final StringBuilder result = new StringBuilder();
+    private static int amount = 0;
 }
