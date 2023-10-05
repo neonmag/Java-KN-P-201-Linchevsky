@@ -19,10 +19,10 @@ public class App
     {
         //OopDemo obj = new OopDemo();
         //obj.run();
-        Injector injector = Guice.createInjector(new ConfigModule());
-        IocDemo iocDemo = injector.getInstance(IocDemo.class);
-        iocDemo.run();
-        //Guice.createInjector(new ConfigModule()).getInstance(AsyncDemo.class).run();
+        //Injector injector = Guice.createInjector(new ConfigModule());
+        //IocDemo iocDemo = injector.getInstance(IocDemo.class);
+        //iocDemo.run();
+        Guice.createInjector(new ConfigModule()).getInstance(AsyncDemo.class).run();
     }
 }
 /*

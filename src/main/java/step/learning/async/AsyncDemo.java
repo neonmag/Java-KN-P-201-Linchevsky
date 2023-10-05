@@ -1,70 +1,85 @@
 package step.learning.async;
 
+import java.util.concurrent.CountDownLatch;
+
 public class AsyncDemo {
-    public void run()
-    {
+    public void run() {
         System.out.println( "Async demo" ) ;
         //multiThreadDemo();
-        //Hw();
-        sum = 100.0;
-        for (int i = 0; i < 12; i++){
-            new Thread(new MonthRate(i + 1)).start();
-        }
+        Hw();
     }
-    private double sum;
-    class MonthRate implements Runnable{
-        public MonthRate(int month) {
-            this.month = month;
-        }
-
-        private int month;
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000); // иммитация запроса
-            } catch (InterruptedException ignored) {}
-            double p = 0.1; // иммитация результата запроса
-            // "добавляем свой результат к общей сумме
-            sum = sum * (1 + p);
-            System.out.printf("month: %02d, percent: %.2f, sum: %.2f%n", month, p, sum);
-        }
-    }
-
-    private void multiThreadDemo()
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    System.out.println("Thread starts");
-                    Thread.sleep(2000);
-                    System.out.println("Thread finishes");
-                } catch (InterruptedException ex)
-                {
-                    System.err.println("Sleepin problem " + ex.getMessage());
+    private void multiThreadDemo(){
+        Thread thread = new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            System.out.println("Thread starts");
+                            Thread.sleep(2000);
+                            System.out.println("Thread finishes");
+                        }
+                        catch (InterruptedException ex){
+                            System.err.println("Sleeping broken" + ex.getMessage());
+                        }
+                    }
                 }
-            }
-        });
-        thread.start();
-
-
+        );
         try {
             thread.join();
         }
-        catch (InterruptedException ex)
-        {
-            System.err.println("Interrupted " + ex.getMessage());
+        catch (InterruptedException ex){
+            System.err.println("Thread joining interrupted" + ex.getMessage());
         }
-
-        new Thread( () -> {System.out.println("Thread 2 starts");} ).start();
-
-        new Thread(this::methodForThread).start();
-
+        //      thread.start();
         System.out.println("multiThreadDemo() finishes");
     }
 
-    private void methodForThread()
-    {
-        System.out.println("Thread 3");
+    private void Hw(){
+        CountDownLatch latch = new CountDownLatch(3);
+
+        Thread thread1 = new Thread(() -> {
+            System.out.println("1 start");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1 finish");
+            latch.countDown();
+        });
+
+        Thread thread2 = new Thread(() -> {
+            System.out.println("2 start");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("2 finish");
+            latch.countDown();
+        });
+
+        Thread thread3 = new Thread(() -> {
+            System.out.println("3 start");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("3 finish");
+            latch.countDown();
+        });
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("final");
     }
 }
