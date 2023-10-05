@@ -1,15 +1,37 @@
 package step.learning.ioc;
 
 import com.google.inject.Inject;
+import jdk.jfr.Name;
 import step.learning.ioc.services.hash.HashService;
+import step.learning.ioc.services.random.RandomService;
+import step.learning.ioc.services.random.RandomServiceV1;
+
+import javax.inject.Named;
 
 public class IocDemo {
+    //@Inject
+    //private HashService hashService;
+
+    private final HashService digestService;
+
+    private final HashService dsaService;
+
+    private final RandomServiceV1 randomService;
+
     @Inject
-    private HashService hashService;
+    public IocDemo(@Named("Digest-Hash") HashService digestService,
+                   @Named("DSA-Hash") HashService dsaService) {
+        this.digestService = digestService;
+        this.dsaService = dsaService;
+        randomService = new RandomServiceV1();
+    }
+
     public void run()
     {
         System.out.println("IoC Demo");
-        System.out.println(hashService.hash("IoC Demo"));
+        System.out.println(digestService.hash("IoC Demo"));
+        System.out.println(dsaService.hash("IoC Demo"));
+        System.out.println("Random: " + randomService.randomHex(6));
     }
 }
 
@@ -31,4 +53,16 @@ Dependency Inversion Principle)
 першими, які від них залежать і т.д)
 
 Поширені системи IoC - Spring, Guice
+
+private final HashService hashService;
+
+    @Inject
+    public IocDemo(HashService hashService) {
+        this.hashService = hashService;
+    }
+
+    @Inject
+    private HashService hashService2;
+
+    @Inject @Named("Hash128") private HashService hashService128;
 */
